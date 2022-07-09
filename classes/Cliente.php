@@ -133,6 +133,11 @@ class Cliente
         $sql = "select * from cliente where cpf_cliente=$cpf";
         $this->retornoBD = $this->conexaoBD->query($sql);
     }
+    public function selecionarPorNome($nome)
+    {
+        $sql = "select * from cliente where nome_cliente='$nome'";
+        $this->retornoBD = $this->conexaoBD->query($sql);
+    }
     public function selecionarClientes()
     {
         $sql = "select * from cliente order by data_cadastro_cliente DESC";
