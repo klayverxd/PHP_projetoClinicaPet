@@ -4,10 +4,12 @@ include("../classes/Utilidades.php");
 class Cliente
 {
 
+    private $id;
     private $nome;
     private $cpf;
     private $email;
-    private $id;
+    private $celular;
+    private $endereco;
     private $utilidades;
 
     public $retornoBD;
@@ -36,6 +38,18 @@ class Cliente
     {
         return $this->email;
     }
+    public function getCelular()
+    {
+        return $this->celular;
+    }
+    public function getEndereco()
+    {
+        return $this->endereco;
+    }
+    public function getSenha()
+    {
+        return $this->senha;
+    }
 
     public function setEmail($email)
     {
@@ -52,10 +66,25 @@ class Cliente
         //validacao
         return $this->cpf = $cpf;
     }
+    public function setCelular($celular)
+    {
+        //validacao
+        return $this->celular = $celular;
+    }
+    public function setEndereco($endereco)
+    {
+        //validacao
+        return $this->endereco = $endereco;
+    }
     public function setId($id)
     {
         //validacao
         return $this->id = $id;
+    }
+    public function setSenha($senha)
+    {
+        //validacao
+        return $this->senha = $senha;
     }
 
     public function cadastrar()
@@ -63,9 +92,8 @@ class Cliente
 
         if ($this->getCPF() != null) {
 
-            $interacaoMySql = $this->conexaoBD->prepare("INSERT INTO cliente (nome_cliente, email_cliente, cpf_cliente) 
-            VALUES (?, ?, ?)");
-            $interacaoMySql->bind_param('sss', $this->getNome(), $this->getEmail(), $this->getCPF());
+            $interacaoMySql = $this->conexaoBD->prepare("INSERT INTO cliente (nome_cliente, email_cliente, cpf_cliente, endereco_cliente, celular_cliente, senha_cliente) VALUES (?, ?, ?, ?, ?, ?)");
+            $interacaoMySql->bind_param('ssssss', $this->getNome(), $this->getEmail(), $this->getCPF(), $this->getEndereco(), $this->getCelular(), $this->getSenha());
             $retorno = $interacaoMySql->execute();
 
             $id = mysqli_insert_id($this->conexaoBD);
@@ -80,9 +108,8 @@ class Cliente
 
         if ($this->getId() != null) {
 
-            $interacaoMySql = $this->conexaoBD->prepare("UPDATE  cliente set  nome_cliente=?, email_cliente=?, cpf_cliente=? 
-            where id_cliente=?");
-            $interacaoMySql->bind_param('sssi', $this->getNome(), $this->getEmail(), $this->getCPF(), $this->getId());
+            $interacaoMySql = $this->conexaoBD->prepare("UPDATE  cliente set  nome_cliente=?, email_cliente=?, cpf_cliente=?, endereco_cliente=?, celular_cliente=? WHERE id_cliente=?");
+            $interacaoMySql->bind_param('sssssi', $this->getNome(), $this->getEmail(), $this->getCPF(), $this->getEndereco(), $this->getCelular(), $this->getId());
             $retorno = $interacaoMySql->execute();
             if ($retorno === false) {
                 trigger_error($this->conexaoBD->error, E_USER_ERROR);

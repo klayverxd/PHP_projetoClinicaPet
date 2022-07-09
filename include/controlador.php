@@ -14,7 +14,6 @@ if (isset($_GET['rota'])) {
         case "editar_cliente":
             include("../include/editarCliente.php");
             break;
-     
     }
 }
 
@@ -25,15 +24,19 @@ if (isset($_POST['formCadastrarCliente'])) {
     $objCliente->setNome($_POST['nomeCliente']);
     $objCliente->setCPF($_POST['cpfCliente']);
     $objCliente->setEmail($_POST['emailCliente']);
-   
-    $objCliente->cadastrar();
+    $objCliente->setEndereco($_POST['enderecoCliente']);
+    $objCliente->setCelular($_POST['celularCliente']);
+    $objCliente->setSenha($_POST['senhaCliente']);
 
+    $objCliente->cadastrar();
 } else if (isset($_POST['formEditarCliente'])) {
     $objCliente = new Cliente();
+    $objCliente->setID($_POST['idCliente']);
     $objCliente->setNome($_POST['nomeCliente']);
     $objCliente->setCPF($_POST['cpfCliente']);
     $objCliente->setEmail($_POST['emailCliente']);
-    $objCliente->setID($_POST['idCliente']);
-    $objCliente->editar();
+    $objCliente->setEndereco($_POST['enderecoCliente']);
+    $objCliente->setCelular($_POST['celularCliente']);
 
+    $objCliente->editar();
 }
