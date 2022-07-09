@@ -117,7 +117,7 @@ class Cliente
 
             $id = mysqli_insert_id($this->conexaoBD);
 
-            return $this->utilidades->validaRedirecionar($retorno, $this->getId(), "admin.php?rota=visualizar_cliente", "Os dados do cliente foram alterados com sucesso!");
+            return $this->utilidades->validaRedirecionar($retorno, $id, "admin.php?rota=visualizar_cliente", "Os dados do cliente foram alterados com sucesso!");
         } else {
             return $this->utilidades->mesagemParaUsuario("Erro! CPF não foi infomado.");
         }
