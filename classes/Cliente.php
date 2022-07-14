@@ -14,6 +14,7 @@ class Cliente
 
     public $retornoBD;
     public $conexaoBD;
+    public $qtdClientes;
 
     public function  __construct()
     {
@@ -123,6 +124,11 @@ class Cliente
         }
     }
 
+    public function verificaQtdClientes()
+    {
+        $sql = "SELECT count(*) as qtd FROM cliente;";
+        $this->qtdClientes = $this->conexaoBD->query($sql);
+    }
     public function selecionarPorId($id)
     {
         $sql = "select * from cliente where id_cliente=$id";
