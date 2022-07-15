@@ -1,3 +1,16 @@
+<?php
+include 'classes/Cliente.php';
+
+if (isset($_POST['formLoginCliente'])) {
+    $objCliente = new Cliente();
+    $objCliente->setEmail($_POST['emailCliente']);
+    $objCliente->setSenha($_POST['senhaCliente']);
+
+    $objCliente->login();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,12 +52,12 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="POST" action="">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="emailCliente">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="senhaCliente">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -53,9 +66,9 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="dashboard.php" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
+
+                                        <input type="hidden" name="formLoginCliente">
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                                         <hr>
                                     </form>
                                     <hr>
@@ -76,6 +89,7 @@
         </div>
 
     </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

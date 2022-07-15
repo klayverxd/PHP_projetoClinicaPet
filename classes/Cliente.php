@@ -1,6 +1,6 @@
 <?php
-include("../classes/Conexao.php");
-include("../classes/Utilidades.php");
+include("Conexao.php");
+include("Utilidades.php");
 class Cliente
 {
 
@@ -15,6 +15,7 @@ class Cliente
     public $retornoBD;
     public $conexaoBD;
     public $qtdClientes;
+    public $login;
 
     public function  __construct()
     {
@@ -86,6 +87,25 @@ class Cliente
     {
         //validacao
         return $this->senha = $senha;
+    }
+
+    public function login()
+    {
+        session_start();
+        $sql1 = "SELECT COUNT(*) as count FROM cliente WHERE email_cliente='$this->getEmail()' AND senha_cliente='$this->getSenha()'";
+        // $sql2 = "SELECT * FROM cliente WHERE email_cliente='$this->getEmail()' AND senha_cliente='$this->getSenha()'";
+
+        $this->login = $this->conexaoBD->query($sql1);
+        $qtd = $this->login->fetch_object()->count;
+        // $this->retornoBD = $this->conexaoBD->query($sql2);
+        // $linhas = mysqli_num_rows($this->retornoBD);
+
+        if ($qtd > 0) {
+            $_SESSION["administrador"] = 'true';
+            header('location: ../PHP_projetoClinicaPet/produto/admin.php');
+        } else {
+            header('location: ../PHP_projetoClinicaPet/dashboard.php');
+        }
     }
 
     public function cadastrar()
